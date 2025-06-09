@@ -1,0 +1,355 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: radial-gradient(ellipse at 60% 40%, #212447 60%, #15161e 100%);
+    color: #eaeaea;
+    position: relative;
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+#controls-panel {
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    background: rgba(25, 26, 45, 0.68);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    border-radius: 18px;
+    padding: 25px 24px 18px 24px;
+    z-index: 10;
+    max-width: 300px;
+    backdrop-filter: blur(9px);
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    transition: background 0.3s, border 0.3s;
+}
+
+#controls-panel h2 {
+    margin: 0 0 18px 0;
+    font-size: 1.3em;
+    color: #ffe57b;
+    text-align: center;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    text-shadow: 0 2px 8px #0008;
+}
+
+.planet-control {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 12px 0;
+}
+
+.planet-label {
+    flex: 1;
+    font-size: 1.08em;
+    color: #fff;
+    min-width: 80px;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+}
+
+.slider {
+    flex: 2;
+    width: 120px;
+    accent-color: #ffd700;
+    background: linear-gradient(90deg, #ffd700 30%, #5e86ff 100%);
+    border-radius: 6px;
+    height: 5px;
+    outline: none;
+    transition: box-shadow 0.2s;
+}
+
+.slider:hover {
+    box-shadow: 0 0 0 2px #ffe57b55;
+}
+
+.slider-value {
+    min-width: 2.4em;
+    display: inline-block;
+    text-align: right;
+    color: #ffd700;
+    font-size: 1em;
+    margin-left: 6px;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+}
+
+#pause-btn,
+#reset-camera-btn,
+.theme-toggle-btn {
+    width: 100%;
+    margin-top: 16px;
+    padding: 10px 0;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.07em;
+    font-weight: 500;
+    background: linear-gradient(90deg, #232344 70%, #5e86ff 100%);
+    color: #ffe57b;
+    cursor: pointer;
+    box-shadow: 0 2px 10px #0004;
+    letter-spacing: 0.03em;
+    transition: background 0.2s, color 0.2s;
+}
+
+#pause-btn:hover,
+#reset-camera-btn:hover,
+.theme-toggle-btn:hover {
+    background: linear-gradient(90deg, #4749af 0%, #ffd700 100%);
+    color: #232344;
+}
+
+#reset-camera-btn {
+    display: none;
+}
+
+.theme-toggle-btn {
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    #controls-panel {
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 97vw;
+        padding: 16px 7vw 12px 7vw;
+    }
+
+    .planet-label {
+        min-width: 60px;
+    }
+}
+
+.planet-tooltip {
+    background: rgba(44, 45, 67, 0.96);
+    color: #ffd700;
+    border: 1px solid #ffd70035;
+    border-radius: 10px;
+    padding: 7px 18px;
+    font-size: 1.08em;
+    font-weight: 500;
+    box-shadow: 0 6px 32px #0009;
+    pointer-events: none;
+    z-index: 1003;
+    opacity: 0;
+    transition: opacity 0.22s, background 0.18s, color 0.18s;
+}
+
+.planet-tooltip.show {
+    opacity: 1;
+}
+
+.planet-tooltip.lightmode {
+    background: rgba(250, 250, 255, 0.98);
+    color: #3a4a99;
+    border: 1px solid #a6b9ff55;
+}
+
+body.lightmode {
+    background: radial-gradient(ellipse at 60% 40%, #f0f0ff 60%, #e4eaff 100%);
+    color: #232344;
+}
+
+body.lightmode #controls-panel {
+    background: rgba(255, 255, 255, 0.79);
+    border-color: rgba(80, 100, 180, 0.09);
+}
+
+body.lightmode .slider-value {
+    color: #3a4a99;
+}
+
+body.lightmode .planet-label {
+    color: #3a4a99;
+}
+
+body.lightmode #pause-btn,
+body.lightmode #reset-camera-btn,
+body.lightmode .theme-toggle-btn {
+    background: linear-gradient(90deg, #f4f4fd 65%, #b0d4ff 100%);
+    color: #3a4a99;
+}
+
+body.lightmode #pause-btn:hover,
+body.lightmode #reset-camera-btn:hover,
+body.lightmode .theme-toggle-btn:hover {
+    background: linear-gradient(90deg, #ffd700 0%, #b0d4ff 100%);
+    color: #232344;
+}
+
+/* Responsive enhancements for mobile devices (add this to your <style> section or as a separate CSS file) */
+
+@media (max-width: 900px) {
+    #controls-panel {
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 98vw;
+        padding: 16px 3vw 12px 3vw;
+        border-radius: 15px;
+    }
+
+    .planet-label {
+        min-width: 50px;
+        font-size: 1em;
+        word-break: break-word;
+    }
+}
+
+@media (max-width: 600px) {
+    #controls-panel {
+        top: 0;
+        left: 0;
+        right: 0;
+        transform: none;
+        width: 100vw;
+        max-width: 100vw;
+        min-width: 0;
+        border-radius: 0 0 18px 18px;
+        padding: 14px 4vw 8px 4vw;
+        box-sizing: border-box;
+        font-size: 1em;
+    }
+
+    #controls-panel h2 {
+        font-size: 1.08em;
+    }
+
+    .planet-control {
+        gap: 7px;
+        margin: 7px 0;
+    }
+
+    .planet-label {
+        min-width: 40px;
+        font-size: 0.96em;
+    }
+
+    .slider {
+        width: 90px;
+        min-width: 60px;
+        max-width: 120px;
+        height: 4px;
+    }
+
+    #pause-btn,
+    #reset-camera-btn,
+    .theme-toggle-btn {
+        padding: 8px 0;
+        font-size: 0.98em;
+        margin-top: 10px;
+        border-radius: 8px;
+    }
+
+    .planet-tooltip {
+        font-size: 0.92em;
+        padding: 6px 12px;
+        border-radius: 8px;
+    }
+}
+
+@media (max-width: 430px) {
+    #controls-panel {
+        padding: 11px 2vw 6px 2vw;
+        border-radius: 0 0 12px 12px;
+    }
+
+    .planet-label {
+        min-width: 28px;
+        font-size: 0.88em;
+    }
+
+    .slider {
+        width: 65px;
+        min-width: 40px;
+        max-width: 90px;
+        height: 3px;
+    }
+
+    .planet-tooltip {
+        font-size: 0.83em;
+        padding: 5px 8px;
+        border-radius: 6px;
+    }
+
+}
+
+#controls-panel.collapsed {
+    width: 44px !important;
+    min-width: 0 !important;
+    max-width: 44px !important;
+    padding: 8px 4px 8px 4px !important;
+    overflow: hidden;
+    transition: max-width 0.3s, width 0.3s, padding 0.3s;
+}
+
+#controls-panel.collapsed>*:not(#toggle-panel-btn) {
+    display: none !important;
+}
+
+.planet-tooltip {
+    background: rgba(44, 45, 67, 0.87);
+    color: #ffd700;
+    border: none;
+    border-radius: 8px;
+    padding: 2px 10px;
+    font-size: 0.95em;
+    font-weight: 500;
+    box-shadow: 0 2px 8px #0005;
+    pointer-events: none;
+    z-index: 2000;
+    opacity: 1;
+    transition: opacity 0.18s;
+}
+
+#toggle-panel-btn {
+    background: transparent;
+    border: none;
+    color: #ffe57b;
+    font-size: 1.7em;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    #controls-panel {
+        width: 95vw;
+        max-width: 95vw;
+        left: 2.5vw;
+        right: 2.5vw;
+        border-radius: 0 0 16px 16px;
+    }
+
+    #controls-panel.collapsed {
+        width: 36px !important;
+        max-width: 36px !important;
+        left: 8px !important;
+        right: auto !important;
+        border-radius: 10px !important;
+    }
+}
+
+/* Make sure the #container always fills the viewport */
+html,
+body,
+#container {
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    /* Prevent unwanted scrolling on mobile */
+    overscroll-behavior: none;
+    touch-action: none;
+}

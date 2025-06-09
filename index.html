@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>3D Solar System Simulation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="container"></div>
+  <div id="controls-panel">
+    <button id="toggle-panel-btn" aria-label="Hide controls"
+      style="position:absolute;top:8px;right:12px;z-index:15;background:transparent;border:none;color:#ffe57b;font-size:1.5em;cursor:pointer;">&#x22EE;</button>
+    <h2>Planet Speeds</h2>
+    <!-- Sliders will be injected here by JS -->
+    <div id="controls"></div>
+    <button id="pause-btn">Pause</button>
+    <button id="reset-camera-btn" style="display:none; width:100%; margin-top:8px;">Back to Solar System</button>
+
+  </div>
+  <!-- Three.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
